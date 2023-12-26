@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "3da405d4-c715-42d4-902a-962ebc48049a",
+		"name": "Paste.ee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31756130"
+	},
+	"item": [
+		{
+			"name": "Submit a new paste",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let date = Date.now();\r",
+							"let contents = \"Testing is done in \"+ date + \" milliseconds\";\r",
+							"pm.environment.set('content',contents);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"test1\", function () {\r",
+							"\r",
+							"    let resp = pm.response.json();\r",
+							"    pm.environment.set('id',resp.id);\r",
+							" })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "uYwbMyDg43LOnPK4NWkPX5DCMRjsIxE5OIGFLltqc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"encrypted\": false, \r\n\"description\": \"test\", \r\n\"sections\": \r\n[{\"name\": \"Section1\",\"syntax\":\"autodetect\",\"contents\":\"{{content}}\"}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/pastes",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pastes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove a paste",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "uYwbMyDg43LOnPK4NWkPX5DCMRjsIxE5OIGFLltqc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/pastes/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pastes",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a paste",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "uYwbMyDg43LOnPK4NWkPX5DCMRjsIxE5OIGFLltqc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/pastes/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pastes",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api.paste.ee/v1",
+			"type": "string"
+		}
+	]
+}
